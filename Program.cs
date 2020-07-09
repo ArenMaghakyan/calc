@@ -81,7 +81,7 @@ namespace Calc
             {
                 if (string.IsNullOrEmpty(input))
                 {
-                    ErrorHandling("Name can't be empty! Input your name once more");
+                    ErrorHandling("Expression can't be empty! Check once more");
                     return false;
                 }
 
