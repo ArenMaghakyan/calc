@@ -13,6 +13,7 @@ namespace Calc
         {
             var validationRegex = new Regex("^[0-9+*-/.]+$");
             var divisionByZeroRegex = new Regex("/0");
+            var isError = false;
             // var validationPattern = new Regex();
 
             SettingAppHeader();
@@ -69,9 +70,11 @@ namespace Calc
                         }
                     }
 
-
-                    var result = new DataTable().Compute(input, null).ToString();
-                    Console.WriteLine(result);
+                    if (!isError)
+                    {
+                        var result = new DataTable().Compute(input, null).ToString();
+                        Console.WriteLine(result);
+                    }
 
                 }
 
@@ -109,6 +112,15 @@ namespace Calc
                     return false;
                 }
 
+                var firstSymbolNotANumber = !char.IsDigit(input.First());
+
+                if (firstSymbolNotANumber)
+                {
+                    ErrorHandling("Format is not correct. Please check first char and resubmit");
+                    return false;
+                }
+
+
                 return true;
             }
 
@@ -126,6 +138,7 @@ namespace Calc
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(errorMessage);
                 Console.ResetColor();
+                isError = true;
             }
 
             return 0;
